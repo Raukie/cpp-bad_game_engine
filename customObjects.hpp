@@ -2,7 +2,7 @@
 #define customObjects_H_INCLUDED
 #include "GameObject.hpp"
 #include "sfml/Graphics.hpp"
-
+const float RandomNumberThatFeelsRight = 0.01;
 class Planet : public OBJ::GameObject {
 public:
 	Planet(float density, float mass, sf::Vector2f pos, sf::Color color, sf::Vector2f initForce) : GameObject((sf::Vector2f(1,1)*mass) * (- density), pos, color, "Planet") {
@@ -18,7 +18,7 @@ public:
 		float distanceBetween = GameObject::DistanceToVector(targetPlanet->Shape.getPosition());
 		if (range > distanceBetween) {
 			sf::Vector2f dir = (targetPlanet->Shape.getPosition() - GameObject::Shape.getPosition());
-			float strength = Mass / distanceBetween;
+			float strength = Mass / distanceBetween * RandomNumberThatFeelsRight;
 			GameObject::AddForce(dir * strength);
 		}
 	}
