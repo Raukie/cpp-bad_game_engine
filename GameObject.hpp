@@ -1,34 +1,39 @@
-#include "sfml/Graphics.hpp";
 
+#include "sfml/Graphics.hpp";
+#include <SFML//Graphics.hpp>
+#include "Game.hpp"
 #ifndef GameObject_H_INCLUDED
 #define GameObject_H_INCLUDED
+
+
+
 
 namespace OBJ {
 	
 	class GameObject {
 	public:
 
-		GameObject(sf::Vector2f size, sf::Vector2f initPos, sf::Color color, std::string tag) {
-			Shape.setPosition(initPos);
-			Shape.setSize(size);
-			Shape.setFillColor(color);
+		GameObject (std::string tag, sf::Shape* sh, char type) {
 			ObjectTag = tag;
 			Force = sf::Vector2f(0, 0);
+			
 		}
 		
+		char Type;
+		bool Invalid = false;
 		std::string ObjectTag;
-		sf::RectangleShape Shape;
 		sf::Vector2f Force;
-
+		sf::Vector2f Pos;
+		sf::Vector2f Scale;
 		bool Kinectic = false;
 
 
 		void MoveTo(sf::Vector2f vec2) {
-			Shape.setPosition(vec2);
+			Pos = vec2;
 		}
 
 		void SetScale(int x, int y) {
-			Shape.setScale(x, y);
+			Scale = sf::Vector2f(x, y);
 		}
 
 		void SetForce(sf::Vector2f vec2) {
@@ -42,15 +47,18 @@ namespace OBJ {
 		}
 		
 		float DistanceToVector(sf::Vector2f vec2) {
-			sf::Vector2f dif = Shape.getPosition() - vec2;
+			sf::Vector2f dif = Pos - vec2;
 			float d = std::abs(dif.x);
 			float y = std::abs(dif.y);
 			return std::sqrt(d*d + y*y);
 		}
-		//has to be called each frame rendered
-		void Update() {
-			if (Kinectic)
-				Shape.setPosition(Shape.getPosition() + Force);
+
+		virtual void Update(Game& game) {
+
+		}
+
+		virtual void Draw(sf::RenderWindow& Window) {
+
 		}
 
 		virtual ~GameObject() {

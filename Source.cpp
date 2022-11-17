@@ -1,7 +1,6 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "Game.hpp"
-#include "CustomObjects.hpp";
 
 //main loop
 int main() {
@@ -28,16 +27,7 @@ int main() {
 		}
 
 		
-		std::vector<OBJ::GameObject*> Objects = game.GetObjectsByTag("Planet");
-
-		for (int i = 0; i < Objects.size(); i++) {
-			Planet* planet = dynamic_cast<Planet*> (Objects[i]);
-
-			for (int j = 0; j < Objects.size(); j++) {
-				if(j!=i)
-					planet->CalculateGravity(dynamic_cast<Planet*>(Objects[j]));
-			}
-		}
-		game.update();
+		
+		game.Update();
 	}
 }

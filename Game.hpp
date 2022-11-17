@@ -1,9 +1,9 @@
-#ifndef Game_H_INCLUDED
-#define Game_H_INCLUDED
 
 #include "GameObject.hpp"
 #include "SFML/Graphics.hpp";
 
+#ifndef Game_H_INCLUDED
+#define Game_H_INCLUDED
 class Game {
 public:
 	Game(sf::RenderWindow& window) : Window(window) {
@@ -21,21 +21,17 @@ public:
 		}
 	}
 
-	void update() {
+	virtual void Update() {
 		Window.clear();
-
-		Draw();
-
-		Window.display();
-	}
-
-	void Draw() {
-
 		for (int i = 0; i < GameObjects.size(); i++) {
+			
 			OBJ::GameObject* Object = GameObjects[i];
-			Object->Update();
-			Window.draw(Object->Shape);
+			Object->Draw(Window);
+			Object->Update(this);
+		
+			
 		}
+		Window.display();
 	}
 
 	//get all objects with tag return as reference for direct editing and moving of object
