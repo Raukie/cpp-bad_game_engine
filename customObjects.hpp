@@ -2,6 +2,7 @@
 #define customObjects_H_INCLUDED
 #include "GameObject.hpp"
 #include "sfml/Graphics.hpp"
+const float slowmo = 0.1;
 const float RandomNumberThatFeelsRight = 0.01;
 class Planet : public OBJ::GameObject {
 public:
@@ -14,11 +15,11 @@ public:
 	float Mass;
 	
 	void CalculateGravity(Planet* targetPlanet) {
-		float range = Mass * 3;
+		float range = Mass * 4;
 		float distanceBetween = GameObject::DistanceToVector(targetPlanet->Shape.getPosition());
 		if (range > distanceBetween) {
 			sf::Vector2f dir = (targetPlanet->Shape.getPosition() - GameObject::Shape.getPosition());
-			float strength = Mass / distanceBetween * RandomNumberThatFeelsRight;
+			float strength = Mass / distanceBetween * RandomNumberThatFeelsRight * slowmo;
 			GameObject::AddForce(dir * strength);
 		}
 	}
