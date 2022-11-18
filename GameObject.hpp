@@ -1,7 +1,7 @@
 
 #include "sfml/Graphics.hpp";
 #include <SFML//Graphics.hpp>
-#include "Game.hpp"
+
 #ifndef GameObject_H_INCLUDED
 #define GameObject_H_INCLUDED
 
@@ -53,7 +53,18 @@ namespace OBJ {
 			return std::sqrt(d*d + y*y);
 		}
 
-		virtual void Update(Game& game) {
+		std::vector<OBJ::GameObject*> GetObjectsByTag(std::vector<OBJ::GameObject*>& Objects, std::string tag) {
+			std::vector<OBJ::GameObject*> foundObjects;
+			for (int i = 0; i < Objects.size(); i++) {
+				OBJ::GameObject* Object = Objects[i];
+				if (Object->ObjectTag == tag) {
+					foundObjects.push_back(Object);
+				}
+			}
+			return foundObjects;
+		}
+
+		virtual void Update(std::vector<OBJ::GameObject*> &objects, float delta) {
 
 		}
 

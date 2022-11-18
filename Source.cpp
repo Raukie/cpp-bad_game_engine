@@ -1,12 +1,12 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "Game.hpp"
-
+#include "customObjects.hpp"
 //main loop
 int main() {
 	sf::RenderWindow Window(sf::VideoMode(1280, 720), "MyProgram");
 	std::vector<Planet> planets;
-	planets.push_back(Planet(1, 200, sf::Vector2f(300,300), sf::Color::Cyan, sf::Vector2f(5,0)));
+	planets.push_back(Planet(1, 200, sf::Vector2f(0,300), sf::Color::Cyan, sf::Vector2f(5,0)));
 	planets.push_back(Planet(1, 200, sf::Vector2f(600, 500), sf::Color::Cyan, sf::Vector2f(-5, 0)));
 	Window.setFramerateLimit(60);
 	Game game(Window);
@@ -28,6 +28,6 @@ int main() {
 
 		
 		
-		game.Update();
+		game.Update(delta);
 	}
 }

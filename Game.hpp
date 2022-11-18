@@ -21,13 +21,13 @@ public:
 		}
 	}
 
-	virtual void Update() {
+	virtual void Update(float delta) {
 		Window.clear();
 		for (int i = 0; i < GameObjects.size(); i++) {
 			
 			OBJ::GameObject* Object = GameObjects[i];
 			Object->Draw(Window);
-			Object->Update(this);
+			Object->Update(GameObjects, delta);
 		
 			
 		}
