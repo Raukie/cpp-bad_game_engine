@@ -13,13 +13,14 @@ public:
 		Density = density;
 		Mass = mass;
 		SetForce(initForce);
-		Shape.setSize((sf::Vector2f(1, 1) * mass) * (-density));
+		Pos = pos;
+		Shape.setRadius((1 * mass * density  * 0.3f)/2);
 		Shape.setPosition(pos);
 		Shape.setFillColor(color);
 	}
 	float Density;
 	float Mass;
-	sf::RectangleShape Shape;
+	sf::CircleShape Shape;
 	void CalculateGravity(Planet* targetPlanet) {
 		float range = Mass * 4;
 		float distanceBetween = DistanceToVector(targetPlanet->Pos);
