@@ -5,11 +5,11 @@
 #define customObjects_H_INCLUDED
 
 
-const float slowmo = 0.1;
+const float slowmo = 0.1;;
 const float RandomNumberThatFeelsRight = 0.01;
 class Planet : public OBJ::GameObject {
 public:
-	Planet(float density, float mass, sf::Vector2f pos, sf::Color color, sf::Vector2f initForce) : GameObject("Planet", &this->Shape, 'R') {
+	Planet(float density, float mass, sf::Vector2f pos, sf::Color color, sf::Vector2f initForce) : GameObject("Planet") {
 		Density = density;
 		Mass = mass;
 		SetForce(initForce);
@@ -34,6 +34,10 @@ public:
 		     
 	}
 
+	float GetTotalForce() {
+		return std::abs(this->ForceThisFrame.x) + std::abs(this->ForceThisFrame.y);
+	}
+
 	void Update(std::vector<OBJ::GameObject*>& objects, float delta) {
 		Shape.setPosition(GameObject::Pos);
 		if (Kinectic)
@@ -49,6 +53,24 @@ public:
 	}
 	
 	
+};
+
+class UiObject : public OBJ::GameObject {
+public:
+	UiObject(sf::Vector2f initPos, sf::Text text) : GameObject("UI") {
+		Pos = initPos;
+		textObj = text;
+	}
+
+	sf::Text textObj;
+
+	void Update(std::vector<OBJ::GameObject*>& objects, float delta) {
+		textObj.setPosition(Pos);
+	}
+
+	void Draw(sf::RenderWindow& Window) {
+		Window.draw(textObj);
+	}
 };
 
 

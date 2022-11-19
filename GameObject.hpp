@@ -13,10 +13,10 @@ namespace OBJ {
 	class GameObject {
 	public:
 
-		GameObject (std::string tag, sf::Shape* sh, char type) {
+		GameObject (std::string tag) {
 			ObjectTag = tag;
 			Force = sf::Vector2f(0, 0);
-			
+			ForceThisFrame = sf::Vector2f(0, 0);
 		}
 		
 		char Type;
@@ -25,6 +25,7 @@ namespace OBJ {
 		sf::Vector2f Force;
 		sf::Vector2f Pos;
 		sf::Vector2f Scale;
+		sf::Vector2f ForceThisFrame;
 		bool Kinectic = false;
 
 
@@ -44,6 +45,7 @@ namespace OBJ {
 		void AddForce(sf::Vector2f vec2) {
 			Kinectic = true;
 			Force += vec2;
+			ForceThisFrame = vec2;
 		}
 		
 		float DistanceToVector(sf::Vector2f vec2) {

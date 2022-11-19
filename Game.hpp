@@ -6,7 +6,7 @@
 #define Game_H_INCLUDED
 class Game {
 public:
-	Game(sf::RenderWindow& window) : Window(window) {
+	Game(sf::RenderWindow& window, sf::View& vw) : Window(window), View(vw) {
 
 	}
 
@@ -14,6 +14,12 @@ public:
 	std::vector<OBJ::GameObject*> GameObjects = {
 		
 	};
+	std::vector<OBJ::GameObject*> UiObjects = {
+
+	};
+
+	bool follow = false;
+	OBJ::GameObject* target;
 
 	void LoadScene(OBJ::Scene scene) {
 		for (int i = 0; i < scene.Objects.size(); i++) {
@@ -23,15 +29,29 @@ public:
 
 	virtual void Update(float delta) {
 		Window.clear();
+
+		//All the ui ui objects
+		Window.setView(Window.getDefaultView());
+		for (int i = 0; i < UiObjects.size(); i++) {
+			OBJ::GameObject* Object = UiObjects[i];
+			Object->Draw(Window);
+			Object->Update(GameObjects, delta);
+		}
+
+		//All the game objects
+		Window.setView(View);
+		if (follow)
+			View.setCenter(target->Pos);
 		for (int i = 0; i < GameObjects.size(); i++) {
 			
 			OBJ::GameObject* Object = GameObjects[i];
 			Object->Draw(Window);
 			Object->Update(GameObjects, delta);
-		
+			
 			
 		}
 		Window.display();
+		
 	}
 
 	//get all objects with tag return as reference for direct editing and moving of object
@@ -48,7 +68,7 @@ public:
 
 private:
 	sf::RenderWindow& Window;
-
+	sf::View& View;
 };
 
 
